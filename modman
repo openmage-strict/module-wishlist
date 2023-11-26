@@ -5,3 +5,4 @@ src/app/design/frontend/rwd/default/layout/wishlist.xml              app/design/
 src/app/design/frontend/rwd/default/template/wishlist/               app/design/frontend/rwd/default/template/wishlist/
 src/app/etc/modules/Mage_Wishlist.xml                                app/etc/modules/Mage_Wishlist.xml
 src/app/locale/en_US/Mage_Wishlist.csv                               app/locale/en_US/Mage_Wishlist.csv
+src/app/locale/en_US/template/email/wishlist_share.html              app/locale/en_US/template/email/wishlist_share.html
