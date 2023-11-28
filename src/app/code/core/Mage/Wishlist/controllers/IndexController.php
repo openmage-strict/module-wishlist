@@ -579,7 +579,6 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
 
             $wishlist->addNewItem($productId, $buyRequest);
 
-            $productIds[] = $productId;
             $cart->getQuote()->removeItem($itemId);
             $cart->save();
             Mage::helper('wishlist')->calculate();
@@ -659,11 +658,11 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
 
             /*if share rss added rss feed to email template*/
             if ($this->getRequest()->getParam('rss_url')) {
-                $rss_url = $this->getLayout()
+                $rssUrl = $this->getLayout()
                     ->createBlock('wishlist/share_email_rss')
                     ->setWishlistId($wishlist->getId())
                     ->toHtml();
-                $message .= $rss_url;
+                $message .= $rssUrl;
             }
             $wishlistBlock = $this->getLayout()->createBlock('wishlist/share_email_items')->toHtml();
 
@@ -711,6 +710,8 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
     /**
      * Custom options download action
      * @return void
+     *
+     * @SuppressWarnings(PHPMD.ExitExpression)
      */
     public function downloadCustomOptionAction()
     {

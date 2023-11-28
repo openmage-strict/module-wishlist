@@ -40,7 +40,7 @@ class Mage_Wishlist_Block_Customer_Wishlist_Item_Column_Cart extends Mage_Wishli
      */
     public function getJs()
     {
-        $js = "
+        $str = "
             function addWItemToCart(itemId) {
                 addWItemToCartCustom(itemId, true)
             }
@@ -70,7 +70,7 @@ class Mage_Wishlist_Block_Customer_Wishlist_Item_Column_Cart extends Mage_Wishli
             }
         ";
 
-        $js .= parent::getJs();
-        return $js;
+        $str .= parent::getJs();
+        return $str;
     }
 }

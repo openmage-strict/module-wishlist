@@ -49,6 +49,8 @@ class Mage_Wishlist_Block_Customer_Wishlist_Item_Column extends Mage_Wishlist_Bl
      *
      * @param string $name
      * @param Mage_Core_Block_Abstract $child
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     protected function _beforeChildToHtml($name, $child)
     {
@@ -62,10 +64,10 @@ class Mage_Wishlist_Block_Customer_Wishlist_Item_Column extends Mage_Wishlist_Bl
      */
     public function getJs()
     {
-        $js = '';
+        $str = '';
         foreach ($this->getSortedChildBlocks() as $child) {
-            $js .= $child->getJs();
+            $str .= $child->getJs();
         }
-        return $js;
+        return $str;
     }
 }

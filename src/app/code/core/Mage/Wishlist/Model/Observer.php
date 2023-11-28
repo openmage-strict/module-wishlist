@@ -138,6 +138,8 @@ class Mage_Wishlist_Model_Observer extends Mage_Core_Model_Abstract
      *
      * @param Varien_Event_Observer $observer
      * @return $this
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function customerLogin(Varien_Event_Observer $observer)
     {
@@ -151,6 +153,8 @@ class Mage_Wishlist_Model_Observer extends Mage_Core_Model_Abstract
      *
      * @param Varien_Event_Observer $observer
      * @return $this
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function customerLogout(Varien_Event_Observer $observer)
     {
