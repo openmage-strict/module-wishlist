@@ -78,6 +78,8 @@ class Mage_Wishlist_Block_Share_Email_Items extends Mage_Wishlist_Block_Abstract
      * @param array $additional
      * @param bool $addFormKey
      * @return string
+     *
+     * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
      */
     public function getAddToCartUrlCustom($product, $additional = [], $addFormKey = true)
     {

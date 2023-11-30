@@ -30,6 +30,8 @@
  * @method string getUpdatedAt()
  * @method $this setUpdatedAt(string $value)
  * @method string getVisibility()
+ *
+ * @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
  */
 class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
 {
@@ -81,6 +83,8 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
      * @param mixed $customer
      * @param bool $create Create wishlist if don't exists
      * @return $this
+     *
+     * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
      */
     public function loadByCustomer($customer, $create = false)
     {
@@ -184,8 +188,9 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
      * @param   Mage_Catalog_Model_Product $product
      * @param   int $qty
      * @param   bool $forciblySetQty
-     *
      * @return  Mage_Wishlist_Model_Item
+     *
+     * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
      */
     protected function _addCatalogProduct(Mage_Catalog_Model_Product $product, $qty = 1, $forciblySetQty = false)
     {
@@ -306,6 +311,10 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
      * @param mixed $buyRequest
      * @param bool $forciblySetQty
      * @return Mage_Wishlist_Model_Item|string
+     *
+     * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+     * @SuppressWarnings(PHPMD.NPathComplexity)
      */
     public function addNewItem($product, $buyRequest = null, $forciblySetQty = false)
     {
@@ -423,6 +432,8 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
      *
      * @param bool $current Use current website or not
      * @return array
+     *
+     * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
      */
     public function getSharedStoreIds($current = true)
     {
@@ -534,6 +545,9 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
      * @return $this
      *
      * @see Mage_Catalog_Helper_Product::addParamsToBuyRequest()
+     *
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+     * @SuppressWarnings(PHPMD.NPathComplexity)
      */
     public function updateItem($itemId, $buyRequest, $params = null)
     {

@@ -16,6 +16,8 @@
 /**
  * @category   Mage
  * @package    Mage_Wishlist
+ *
+ * @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
  */
 class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
 {
@@ -557,6 +559,8 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
      * @param array $params
      * @param bool $addFormKey
      * @return string|bool
+     *
+     * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
      */
     public function getAddUrlWithCustomParams($item, array $params = [], $addFormKey = true)
     {
@@ -585,6 +589,8 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
      * @param Mage_Catalog_Model_Product|Mage_Wishlist_Model_Item $item
      * @param bool $addFormKey
      * @return string
+     *
+     * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
      */
     public function getRemoveUrlCustom($item, $addFormKey = true)
     {
@@ -603,7 +609,9 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * @param string|Mage_Catalog_Model_Product|Mage_Wishlist_Model_Item $item
      * @param bool $addFormKey
-     * @return  string
+     * @return string
+     *
+     * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
      */
     public function getAddToCartUrlCustom($item, $addFormKey = true)
     {
