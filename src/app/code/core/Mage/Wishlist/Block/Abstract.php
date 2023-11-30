@@ -199,15 +199,17 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
      * @param Mage_Catalog_Model_Product|Mage_Wishlist_Model_Item $product
      *
      * @return string
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function getItemConfigureUrl($product)
     {
         if ($product instanceof Mage_Catalog_Model_Product) {
-            $id = $product->getWishlistItemId();
+            $productId = $product->getWishlistItemId();
         } else {
-            $id = $product->getId();
+            $productId = $product->getId();
         }
-        $params = ['id' => $id];
+        $params = ['id' => $productId];
 
         return $this->getUrl('wishlist/index/configure/', $params);
     }
@@ -346,8 +348,9 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
      * @param Mage_Catalog_Model_Product $product
      * @param bool $displayMinimalPrice
      * @param string $idSuffix
-     *
      * @return string
+     *
+     * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
      */
     public function getPriceHtml($product, $displayMinimalPrice = false, $idSuffix = '')
     {
@@ -403,6 +406,8 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
      * @param Mage_Catalog_Model_Product $product
      * @param bool $addFormKey
      * @return string
+     *
+     * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
      */
     public function getAddToWishlistUrlCustom($product, $addFormKey = true)
     {
@@ -418,6 +423,8 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
      * @param Mage_Catalog_Model_Product|Mage_Wishlist_Model_Item $item
      * @param bool $addFormKey
      * @return string
+     *
+     * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
      */
     public function getItemRemoveUrlCustom($item, $addFormKey = true)
     {
@@ -433,6 +440,8 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
      * @param string|Mage_Catalog_Model_Product|Mage_Wishlist_Model_Item $item
      * @param bool $addFormKey
      * @return string
+     *
+     * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
      */
     public function getItemAddToCartUrlCustom($item, $addFormKey = true)
     {

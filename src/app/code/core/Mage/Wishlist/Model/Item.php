@@ -39,6 +39,9 @@
  * @method int getWishlistId()
  * @method $this setWishlistId(int $value)Mage_Wishlist_Model_Resource_Item
  * @method $this setWishlist(Mage_Wishlist_Model_Wishlist $param)
+ *
+ * @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
+ * @SuppressWarnings(PHPMD.TooManyPublicMethods)
  */
 class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_Catalog_Model_Product_Configuration_Item_Interface
 {
@@ -344,6 +347,8 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
      * @param Mage_Checkout_Model_Cart $cart
      * @param bool $delete  delete the item after successful add to cart
      * @return bool
+     *
+     * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
      */
     public function addToCart(Mage_Checkout_Model_Cart $cart, $delete = false)
     {
@@ -697,14 +702,14 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
      * If we need to load only some of options, then option code or array of option codes
      * can be provided in $optionsFilter.
      *
-     * @param int $id
+     * @param int $itemId
      * @param null|string|array $optionsFilter
      *
      * @return $this
      */
-    public function loadWithOptions($id, $optionsFilter = null)
+    public function loadWithOptions($itemId, $optionsFilter = null)
     {
-        $this->load($id);
+        $this->load($itemId);
         if (!$this->getId()) {
             return $this;
         }

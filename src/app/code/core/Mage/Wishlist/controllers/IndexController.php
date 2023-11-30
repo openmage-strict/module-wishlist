@@ -21,6 +21,9 @@
  *
  * @method float getQty()
  * @method int getProductId()
+ *
+ * @SuppressWarnings(PHPMD.TooManyPublicMethods)
+ * @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
  */
 class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
 {
@@ -170,6 +173,8 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
      * Add the item to wish list
      *
      * @return void
+     *
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
      */
     protected function _addItemToWishList()
     {
@@ -250,11 +255,11 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
      */
     public function configureAction()
     {
-        $id = (int) $this->getRequest()->getParam('id');
+        $itemId = (int) $this->getRequest()->getParam('id');
         try {
             /** @var Mage_Wishlist_Model_Item $item */
             $item = Mage::getModel('wishlist/item');
-            $item->loadWithOptions($id);
+            $item->loadWithOptions($itemId);
             if (!$item->getId()) {
                 Mage::throwException($this->__('Cannot load wishlist item'));
             }
@@ -310,10 +315,10 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
         }
 
         try {
-            $id = (int) $this->getRequest()->getParam('id');
+            $itemId = (int) $this->getRequest()->getParam('id');
             /** @var Mage_Wishlist_Model_Item $item */
             $item = Mage::getModel('wishlist/item');
-            $item->load($id);
+            $item->load($itemId);
             $wishlist = $this->_getWishlist($item->getWishlistId());
             if (!$wishlist) {
                 $this->_redirect('*/');
@@ -322,12 +327,12 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
 
             $buyRequest = new Varien_Object($this->getRequest()->getParams());
 
-            $wishlist->updateItem($id, $buyRequest)
+            $wishlist->updateItem($itemId, $buyRequest)
                 ->save();
 
             Mage::helper('wishlist')->calculate();
             Mage::dispatchEvent('wishlist_update_item', [
-                'wishlist' => $wishlist, 'product' => $product, 'item' => $wishlist->getItem($id)]);
+                'wishlist' => $wishlist, 'product' => $product, 'item' => $wishlist->getItem($itemId)]);
 
             Mage::helper('wishlist')->calculate();
 
@@ -344,6 +349,9 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
 
     /**
      * Update wishlist item comments
+     *
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+     * @SuppressWarnings(PHPMD.NPathComplexity)
      */
     public function updateAction()
     {
@@ -436,8 +444,8 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
         if (!$this->_validateFormKey()) {
             return $this->_redirect('*/*');
         }
-        $id = (int) $this->getRequest()->getParam('item');
-        $item = Mage::getModel('wishlist/item')->load($id);
+        $itemId = (int) $this->getRequest()->getParam('item');
+        $item = Mage::getModel('wishlist/item')->load($itemId);
         if (!$item->getId()) {
             return $this->norouteAction();
         }
@@ -468,6 +476,9 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
      *
      * If Product has required options - item removed from wishlist and redirect
      * to product view page with message about needed defined required options
+     *
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+     * @SuppressWarnings(PHPMD.NPathComplexity)
      */
     public function cartAction()
     {
@@ -613,6 +624,9 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
      * Share wishlist
      *
      * @return Mage_Core_Controller_Varien_Action|void
+     *
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+     * @SuppressWarnings(PHPMD.NPathComplexity)
      */
     public function sendAction()
     {
@@ -711,6 +725,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
      * Custom options download action
      * @return void
      *
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
      * @SuppressWarnings(PHPMD.ExitExpression)
      */
     public function downloadCustomOptionAction()

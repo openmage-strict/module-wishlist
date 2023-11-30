@@ -66,6 +66,8 @@ class Mage_Wishlist_Block_Customer_Sidebar extends Mage_Wishlist_Block_Abstract
      *
      * @deprecated after 1.6.2.0
      * @return bool
+     *
+     * @SuppressWarnings(PHPMD.BooleanGetMethodName)
      */
     public function getCanDisplayWishlist()
     {
