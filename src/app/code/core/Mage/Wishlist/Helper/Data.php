@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,15 +10,13 @@
  * @category   Mage
  * @package    Mage_Wishlist
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * @category   Mage
  * @package    Mage_Wishlist
- *
- * @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
  */
 class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
 {
@@ -93,8 +92,6 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
 
     /**
      * Set current customer
-     *
-     * @param Mage_Customer_Model_Customer $customer
      */
     public function setCustomer(Mage_Customer_Model_Customer $customer)
     {
@@ -275,7 +272,7 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
     public function getConfigureUrl($item)
     {
         return $this->_getUrl('wishlist/index/configure', [
-            'item' => $item->getWishlistItemId()
+            'item' => $item->getWishlistItemId(),
         ]);
     }
 
@@ -331,7 +328,6 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
      * Retrieve url for adding product to wishlist with params
      *
      * @param Mage_Catalog_Model_Product|Mage_Wishlist_Model_Item $item
-     * @param array $params
      *
      * @return  string|bool
      */
@@ -391,7 +387,7 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
         $params = [
             'item' => is_string($item) ? $item : $item->getWishlistItemId(),
             'code' => $this->getWishlist()->getSharingCode(),
-            Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $continueUrl
+            Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $continueUrl,
         ];
         return $this->_getUrlStore($item)->getUrl('wishlist/shared/cart', $params);
     }
@@ -480,7 +476,7 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
         }
         return $this->_getUrl(
             'rss/index/wishlist',
-            $params
+            $params,
         );
     }
 
@@ -534,7 +530,7 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
             }
             $session->setWishlistDisplayType(Mage::getStoreConfig(self::XML_PATH_WISHLIST_LINK_USE_QTY));
             $session->setDisplayOutOfStockProducts(
-                Mage::getStoreConfig(self::XML_PATH_CATALOGINVENTORY_SHOW_OUT_OF_STOCK)
+                Mage::getStoreConfig(self::XML_PATH_CATALOGINVENTORY_SHOW_OUT_OF_STOCK),
             );
         }
         $session->setWishlistItemCount($count);
@@ -556,11 +552,8 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
      * Retrieve url for adding product to wishlist with params with or without Form Key
      *
      * @param Mage_Catalog_Model_Product|Mage_Wishlist_Model_Item $item
-     * @param array $params
      * @param bool $addFormKey
      * @return string|bool
-     *
-     * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
      */
     public function getAddUrlWithCustomParams($item, array $params = [], $addFormKey = true)
     {
@@ -589,13 +582,11 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
      * @param Mage_Catalog_Model_Product|Mage_Wishlist_Model_Item $item
      * @param bool $addFormKey
      * @return string
-     *
-     * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
      */
     public function getRemoveUrlCustom($item, $addFormKey = true)
     {
         $params = [
-            'item' => $item->getWishlistItemId()
+            'item' => $item->getWishlistItemId(),
         ];
         if ($addFormKey) {
             $params[Mage_Core_Model_Url::FORM_KEY] = $this->_getSingletonModel('core/session')->getFormKey();
@@ -609,9 +600,7 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * @param string|Mage_Catalog_Model_Product|Mage_Wishlist_Model_Item $item
      * @param bool $addFormKey
-     * @return string
-     *
-     * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
+     * @return  string
      */
     public function getAddToCartUrlCustom($item, $addFormKey = true)
     {
@@ -620,7 +609,7 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
                 '_current'      => true,
                 '_use_rewrite'  => true,
                 '_store_to_url' => true,
-            ])
+            ]),
         );
         $params = [
             'item' => is_string($item) ? $item : $item->getWishlistItemId(),

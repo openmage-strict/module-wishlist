@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Wishlist
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -30,8 +31,6 @@
  * @method string getUpdatedAt()
  * @method $this setUpdatedAt(string $value)
  * @method string getVisibility()
- *
- * @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
  */
 class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
 {
@@ -83,8 +82,6 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
      * @param mixed $customer
      * @param bool $create Create wishlist if don't exists
      * @return $this
-     *
-     * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
      */
     public function loadByCustomer($customer, $create = false)
     {
@@ -185,19 +182,16 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
     /**
      * Add catalog product object data to wishlist
      *
-     * @param   Mage_Catalog_Model_Product $product
      * @param   int $qty
      * @param   bool $forciblySetQty
      * @return  Mage_Wishlist_Model_Item
-     *
-     * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
      */
     protected function _addCatalogProduct(Mage_Catalog_Model_Product $product, $qty = 1, $forciblySetQty = false)
     {
         $item = null;
-        foreach ($this->getItemCollection() as $_item) {
-            if ($_item->representProduct($product)) {
-                $item = $_item;
+        foreach ($this->getItemCollection() as $wishlistItem) {
+            if ($wishlistItem->representProduct($product)) {
+                $item = $wishlistItem;
                 break;
             }
         }
@@ -290,7 +284,6 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
     /**
      * Adding item to wishlist
      *
-     * @param   Mage_Wishlist_Model_Item $item
      * @return  $this
      */
     public function addItem(Mage_Wishlist_Model_Item $item)
@@ -311,10 +304,6 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
      * @param mixed $buyRequest
      * @param bool $forciblySetQty
      * @return Mage_Wishlist_Model_Item|string
-     *
-     * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
-     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
-     * @SuppressWarnings(PHPMD.NPathComplexity)
      */
     public function addNewItem($product, $buyRequest = null, $forciblySetQty = false)
     {
@@ -342,17 +331,17 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
             ->load($productId);
 
         if ($buyRequest instanceof Varien_Object) {
-            $_buyRequest = $buyRequest;
+            $request = $buyRequest;
         } elseif (is_string($buyRequest)) {
-            $_buyRequest = new Varien_Object(unserialize($buyRequest, ['allowed_classes' => false]));
+            $request = new Varien_Object(unserialize($buyRequest, ['allowed_classes' => false]));
         } elseif (is_array($buyRequest)) {
-            $_buyRequest = new Varien_Object($buyRequest);
+            $request = new Varien_Object($buyRequest);
         } else {
-            $_buyRequest = new Varien_Object();
+            $request = new Varien_Object();
         }
 
         $cartCandidates = $product->getTypeInstance(true)
-            ->processConfiguration($_buyRequest, $product);
+            ->processConfiguration($request, $product);
 
         /**
          * Error message
@@ -432,8 +421,6 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
      *
      * @param bool $current Use current website or not
      * @return array
-     *
-     * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
      */
     public function getSharedStoreIds($current = true)
     {
@@ -441,12 +428,12 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
             if ($current) {
                 $this->_storeIds = $this->getStore()->getWebsite()->getStoreIds();
             } else {
-                $_storeIds = [];
+                $storeIds = [];
                 $stores = Mage::app()->getStores();
                 foreach ($stores as $store) {
-                    $_storeIds[] = $store->getId();
+                    $storeIds[] = $store->getId();
                 }
-                $this->_storeIds = $_storeIds;
+                $this->_storeIds = $storeIds;
             }
         }
         return $this->_storeIds;
@@ -545,9 +532,6 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
      * @return $this
      *
      * @see Mage_Catalog_Helper_Product::addParamsToBuyRequest()
-     *
-     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
-     * @SuppressWarnings(PHPMD.NPathComplexity)
      */
     public function updateItem($itemId, $buyRequest, $params = null)
     {
@@ -555,7 +539,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
         if ($itemId instanceof Mage_Wishlist_Model_Item) {
             $item = $itemId;
         } else {
-            $item = $this->getItem((int)$itemId);
+            $item = $this->getItem((int) $itemId);
         }
         if (!$item) {
             Mage::throwException(Mage::helper('wishlist')->__('Cannot specify wishlist item.'));
@@ -573,13 +557,13 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
             $buyRequest = Mage::helper('catalog/product')->addParamsToBuyRequest($buyRequest, $params);
 
             $product->setWishlistStoreId($item->getStoreId());
-            $items = $this->getItemCollection();
+            $wishlistItems = $this->getItemCollection();
             $isForceSetQuantity = true;
-            foreach ($items as $_item) {
-                /** @var Mage_Wishlist_Model_Item $_item */
-                if ($_item->getProductId() == $product->getId()
-                    && $_item->representProduct($product)
-                    && $_item->getId() != $item->getId()
+            foreach ($wishlistItems as $wishlistItem) {
+                /** @var Mage_Wishlist_Model_Item $wishlistItem */
+                if ($wishlistItem->getProductId() == $product->getId()
+                    && $wishlistItem->representProduct($product)
+                    && $wishlistItem->getId() != $item->getId()
                 ) {
                     // We do not add new wishlist item, but updating the existing one
                     $isForceSetQuantity = false;

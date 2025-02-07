@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Wishlist
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -94,8 +95,6 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
      *
      * @param Mage_Wishlist_Model_Resource_Item_Collection $collection
      * @return $this
-     *
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     protected function _prepareCollection($collection)
     {
@@ -199,17 +198,15 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
      * @param Mage_Catalog_Model_Product|Mage_Wishlist_Model_Item $product
      *
      * @return string
-     *
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function getItemConfigureUrl($product)
     {
         if ($product instanceof Mage_Catalog_Model_Product) {
-            $productId = $product->getWishlistItemId();
+            $id = $product->getWishlistItemId();
         } else {
-            $productId = $product->getId();
+            $id = $product->getId();
         }
-        $params = ['id' => $productId];
+        $params = ['id' => $id];
 
         return $this->getUrl('wishlist/index/configure/', $params);
     }
@@ -217,7 +214,7 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
     /**
      * Retrieve Escaped Description for Wishlist Item
      *
-     * @param Mage_Catalog_Model_Product $item
+     * @param Mage_Wishlist_Model_Item $item
      * @return string
      */
     public function getEscapedDescription($item)
@@ -236,7 +233,7 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
      */
     public function hasDescription($item)
     {
-        return trim($item->getDescription()) != '';
+        return trim($item->getDescription() ?? '') != '';
     }
 
     /**
@@ -313,7 +310,7 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
         if ($type) {
             $this->_itemPriceBlockTypes[$type] = [
                 'block' => $block,
-                'template' => $template
+                'template' => $template,
             ];
         }
     }
@@ -348,9 +345,8 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
      * @param Mage_Catalog_Model_Product $product
      * @param bool $displayMinimalPrice
      * @param string $idSuffix
-     * @return string
      *
-     * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
+     * @return string
      */
     public function getPriceHtml($product, $displayMinimalPrice = false, $idSuffix = '')
     {
@@ -406,8 +402,6 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
      * @param Mage_Catalog_Model_Product $product
      * @param bool $addFormKey
      * @return string
-     *
-     * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
      */
     public function getAddToWishlistUrlCustom($product, $addFormKey = true)
     {
@@ -423,8 +417,6 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
      * @param Mage_Catalog_Model_Product|Mage_Wishlist_Model_Item $item
      * @param bool $addFormKey
      * @return string
-     *
-     * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
      */
     public function getItemRemoveUrlCustom($item, $addFormKey = true)
     {
@@ -440,8 +432,6 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
      * @param string|Mage_Catalog_Model_Product|Mage_Wishlist_Model_Item $item
      * @param bool $addFormKey
      * @return string
-     *
-     * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
      */
     public function getItemAddToCartUrlCustom($item, $addFormKey = true)
     {
