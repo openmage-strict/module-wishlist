@@ -6,6 +6,9 @@
     "require": {
         "magento-hackathon/magento-composer-installer": "*",
         "openmage-strict/module-catalog": "^120.2",
-        "openmage-strict/module-customer": "^120.2"
+        "openmage-strict/module-customer": "^120.2",
+        "zf1s/zend-date": "*",
+        "zf1s/zend-db": "*",
+        "zf1s/zend-validate": "*"
     }
 }
